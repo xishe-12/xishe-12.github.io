@@ -1,208 +1,71 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title></title>
-  <!-- Tailwind CSS v3 -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Font Awesome -->
-  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
-  
-  <!-- 自定义配置 -->
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#FF69B4',
-            secondary: '#FFB6C1',
-            accent: '#FF85A2',
-          },
-          fontFamily: {
-            kai: ['KaiTi', 'STKaiti', 'serif'],
-          },
-        },
-      }
-    }
-  </script>
-  
-  <style type="text/tailwindcss">
-    @layer utilities {
-      .content-auto {
-        content-visibility: auto;
-      }
-      .popup-shadow {
-        box-shadow: 0 10px 25px -5px rgba(255, 105, 180, 0.4);
-      }
-      .float-animation {
-        animation: float 6s ease-in-out infinite;
-      }
-      .bounce-in {
-        animation: bounce-in 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      }
-      .close-btn {
-        @apply absolute top-2 right-2 text-gray-500 hover:text-red-500 transition-colors duration-200;
-      }
-    }
-    
-    @keyframes float {
-      0% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-10px) rotate(2deg); }
-      100% { transform: translateY(0px) rotate(0deg); }
-    }
-    
-    @keyframes bounce-in {
-      0% { transform: scale(0); opacity: 0; }
-      60% { transform: scale(1.1); opacity: 1; }
-      100% { transform: scale(1); }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="bg-gradient-to-br from-white to-gray-100 min-h-screen overflow-hidden">
-  <div id="popup-container" class="fixed inset-0 pointer-events-none"></div>
-  
-  <div class="fixed inset-0 flex items-center justify-center pointer-events-none z-50">
-    <h1 class="text-[clamp(2rem,5vw,4rem)] font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent font-kai">
-      莫冰冰
-    </h1>
-  </div>
-  
-  <script>
-    // 弹窗配置
-    const config = {
-      totalPopups: 50,       // 弹窗总数
-      delayBetweenPopups: 100, // 弹窗间隔时间(毫秒)
-      minWidth: 180,         // 弹窗最小宽度
-      maxWidth: 250,         // 弹窗最大宽度
-      minHeight: 80,         // 弹窗最小高度
-      maxHeight: 120,        // 弹窗最大高度
-      minDuration: 3000,     // 弹窗最小显示时间(毫秒)
-      maxDuration: 8000,     // 弹窗最大显示时间(毫秒)
-    };
-    
-    // 随机颜色数组
-    const colors = [
-      'bg-pink-100', 'bg-pink-200', 'bg-pink-300', 
-      'bg-red-100', 'bg-red-200', 'bg-red-300',
-      'bg-purple-100', 'bg-purple-200', 'bg-purple-300',
-      'bg-indigo-100', 'bg-indigo-200', 'bg-indigo-300',
-    ];
-    
-    // 随机消息数组
-    const messages = [
-      '莫冰冰！', '莫冰冰最可爱！', '冰冰冰冰冰！', 
-      '你好，莫冰冰！', '莫冰冰好漂亮！', '莫冰冰真棒！',
-      '莫冰冰是我的女神！', '莫冰冰好厉害！', '莫冰冰真迷人！'
-    ];
-    
-    // 随机获取数组元素
-    function getRandomItem(array) {
-      return array[Math.floor(Math.random() * array.length)];
-    }
-    
-    // 创建弹窗
-    function createPopup() {
-      const container = document.getElementById('popup-container');
-      const popup = document.createElement('div');
-      
-      // 随机尺寸
-      const width = Math.floor(Math.random() * (config.maxWidth - config.minWidth + 1)) + config.minWidth;
-      const height = Math.floor(Math.random() * (config.maxHeight - config.minHeight + 1)) + config.minHeight;
-      
-      // 随机位置
-      const screenWidth = window.innerWidth;
-      const screenHeight = window.innerHeight;
-      const maxLeft = screenWidth - width;
-      const maxTop = screenHeight - height;
-      const left = Math.floor(Math.random() * maxLeft);
-      const top = Math.floor(Math.random() * maxTop);
-      
-      // 随机样式
-      const color = getRandomItem(colors);
-      const message = getRandomItem(messages);
-      const animationDelay = Math.random() * 2;
-      
-      // 设置弹窗样式和内容
-      popup.className = `fixed pointer-events-auto ${color} rounded-lg p-4 popup-shadow bounce-in float-animation z-40`;
-      popup.style.width = `${width}px`;
-      popup.style.height = `${height}px`;
-      popup.style.left = `${left}px`;
-      popup.style.top = `${top}px`;
-      popup.style.animationDelay = `${animationDelay}s`;
-      
-      // 关闭按钮
-      const closeBtn = document.createElement('button');
-      closeBtn.className = 'close-btn';
-      closeBtn.innerHTML = '<i class="fa fa-times"></i>';
-      closeBtn.onclick = () => {
-        fadeOut(popup);
-      };
-      
-      // 内容容器
-      const content = document.createElement('div');
-      content.className = 'h-full flex flex-col items-center justify-center text-center';
-      
-      // 图标
-      const icon = document.createElement('div');
-      icon.className = 'text-3xl mb-2 text-primary';
-      icon.innerHTML = '<i class="fa fa-heart"></i>';
-      
-      // 消息
-      const messageElement = document.createElement('p');
-      messageElement.className = 'font-kai text-xl font-bold text-primary';
-      messageElement.textContent = message;
-      
-      // 组装弹窗
-      content.appendChild(icon);
-      content.appendChild(messageElement);
-      popup.appendChild(closeBtn);
-      popup.appendChild(content);
-      
-      // 添加到容器
-      container.appendChild(popup);
-      
-      // 自动关闭
-      const duration = Math.floor(Math.random() * (config.maxDuration - config.minDuration + 1)) + config.minDuration;
-      setTimeout(() => {
-        fadeOut(popup);
-      }, duration);
-    }
-    
-    // 淡出效果
-    function fadeOut(element) {
-      element.style.transition = 'opacity 0.5s, transform 0.5s';
-      element.style.opacity = '0';
-      element.style.transform = 'scale(0.8)';
-      
-      setTimeout(() => {
-        if (element.parentNode) {
-          element.parentNode.removeChild(element);
-        }
-      }, 500);
-    }
-    
-    // 创建多个弹窗
-    let popupCount = 0;
-    function createPopups() {
-      if (popupCount < config.totalPopups) {
-        createPopup();
-        popupCount++;
-        setTimeout(createPopups, config.delayBetweenPopups);
-      }
-    }
-    
-    // 启动弹窗创建
-    createPopups();
-    
-    // 鼠标移动效果
-    document.addEventListener('mousemove', (e) => {
-      const x = e.clientX / window.innerWidth - 0.5;
-      const y = e.clientY / window.innerHeight - 0.5;
-      
-      document.querySelector('h1').style.transform = `translate(${x * 20}px, ${y * 20}px)`;
-    });
-  </script>
+<body>
+    <div class="container">
+        <div class="love-days">
+            <p>今天是我们认识的第 <span id="days-count">529</span> 天</p>
+        </div>
+        
+        <!-- 添加实时温湿度显示区域 -->
+        <div class="real-time-weather">
+            <div class="weather-item">
+                <span class="weather-label">实时温度:</span>
+                <span id="real-temp">--°C</span>
+            </div>
+            <div class="weather-item">
+                <span class="weather-label">湿度:</span>
+                <span id="humidity">--%</span>
+            </div>
+        </div>
+        
+        <!-- 添加下雨预警区域 -->
+        <div class="rain-alert" id="rain-alert">
+            <p>未来可能有雨，请注意携带雨具！</p>
+        </div>
+        
+        <div class="weather-reminder">
+            <p>天气阴冷，穿暖和点吧！</p>
+        </div>
+        
+        <div class="weather-forecast">
+            <h3>近期天气预报</h3>
+            
+            <div class="weather-day">
+                <span class="day-name">今天</span>
+                <span class="day-date"></span>
+                <span class="weather-icon sunny"></span>
+                <span class="weather-desc">晴</span>
+                <span class="temperature">4° / 15°</span>
+            </div>
+            
+            <div class="weather-day">
+                <span class="day-name">明天</span>
+                <span class="day-date"></span>
+                <span class="weather-icon cloudy"></span>
+                <span class="weather-desc">多云</span>
+                <span class="temperature">4° / 14°</span>
+            </div>
+            
+            <div class="weather-day">
+                <span class="day-name">后天</span>
+                <span class="day-date"></span>
+                <span class="weather-icon cloudy"></span>
+                <span class="weather-desc">多云</span>
+                <span class="temperature">7° / 13°</span>
+            </div>
+        </div>
+        
+        <div class="date">
+            <p id="current-date">2017 / 12 / 5</p>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
 </body>
 </html>
-    
