@@ -1,0 +1,292 @@
+/* 极简风格重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
+    background: #fafbfc;
+    color: #222;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 420px;
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #ececec;
+    box-shadow: none;
+    padding: 32px 20px 20px 20px;
+    text-align: center;
+}
+
+.love-days {
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f0f0f0;
+    background: none;
+    border-radius: 0;
+}
+
+.love-days p {
+    font-size: 20px;
+    color: #222;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+#days-count {
+    color: #1976d2;
+    font-weight: bold;
+    font-size: 30px;
+    padding: 0 4px;
+    text-shadow: none;
+}
+
+.real-time-weather {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 20px;
+    padding: 0;
+    background: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.weather-item {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.weather-item:first-child::after {
+    content: '';
+    position: absolute;
+    right: -12px;
+    height: 60%;
+    width: 1px;
+    background-color: #ececec;
+}
+
+.weather-label {
+    font-size: 15px;
+    color: #888;
+    margin-right: 6px;
+}
+
+#real-temp {
+    font-size: 22px;
+    font-weight: 600;
+    color: #1976d2;
+}
+
+#humidity {
+    font-size: 22px;
+    font-weight: 600;
+    color: #555;
+}
+
+.rain-alert {
+    background: #f8f8f8;
+    color: #c62828;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 18px;
+    text-align: center;
+    display: none;
+    border-left: 3px solid #e57373;
+    box-shadow: none;
+    animation: none;
+}
+
+.weather-reminder {
+    margin-bottom: 22px;
+    padding: 10px 0;
+    background: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.weather-reminder p {
+    font-size: 16px;
+    color: #444;
+    line-height: 1.5;
+}
+
+.weather-forecast {
+    margin-bottom: 22px;
+    background: none;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+    border-top: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.weather-forecast h3 {
+    font-size: 16px;
+    color: #1976d2;
+    margin-bottom: 16px;
+    text-align: center;
+    font-weight: 600;
+    background: none;
+    position: static;
+    display: block;
+}
+
+.weather-day {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid #f5f5f5;
+    border-radius: 0;
+    background: none;
+    transition: background 0.2s;
+}
+.weather-day:last-child {
+    border-bottom: none;
+}
+.weather-day:hover {
+    background: #f7fafd;
+}
+
+.day-name {
+    width: 38px;
+    text-align: left;
+    font-weight: 500;
+    color: #222;
+}
+.day-date {
+    font-size: 12px;
+    color: #aaa;
+    margin-left: 4px;
+}
+.weather-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    background: none;
+    box-shadow: none;
+    margin: 0 8px;
+}
+.sunny::before {
+    content: '☀️';
+    font-size: 28px;
+}
+.cloudy::before {
+    content: '☁️';
+    font-size: 28px;
+}
+.rainy::before {
+    content: '🌧️';
+    font-size: 28px;
+}
+.weather-desc {
+    width: 48px;
+    text-align: center;
+    font-size: 14px;
+    color: #444;
+}
+.temperature {
+    width: 80px;
+    text-align: right;
+    font-weight: 500;
+    color: #1976d2;
+}
+.date {
+    color: #888;
+    font-size: 15px;
+    font-weight: 400;
+    margin-top: 12px;
+    letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px 2vw;
+        max-width: 98vw;
+        margin-top: 6px;
+    }
+    .love-days {
+        font-size: 16px;
+        padding: 8px 0;
+    }
+    .real-time-weather {
+        flex-direction: column;
+        gap: 8px;
+    }
+    .weather-forecast {
+        padding: 0;
+    }
+    .weather-day {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 0;
+    }
+    .day-name, .day-date, .weather-desc, .temperature {
+        width: auto;
+        text-align: left;
+        font-size: 14px;
+    }
+    .weather-icon {
+        margin: 4px 0;
+        width: 32px;
+        height: 32px;
+        font-size: 20px;
+    }
+    .date {
+        font-size: 13px;
+        margin-top: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 2px;
+    }
+    .container {
+        padding: 4px 1vw;
+        max-width: 100vw;
+        border-radius: 8px;
+    }
+    .love-days p {
+        font-size: 14px;
+    }
+    #days-count {
+        font-size: 18px;
+        padding: 0 2px;
+    }
+    .weather-reminder p {
+        font-size: 13px;
+    }
+    .weather-forecast h3 {
+        font-size: 13px;
+    }
+}
+
+.daily-joke {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#joke-content {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+    margin-top: 10px;
+}
