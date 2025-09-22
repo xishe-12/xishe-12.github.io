@@ -1,5 +1,17 @@
 // 等待DOM加载完成
 document.addEventListener('DOMContentLoaded', function() {
+    // 城市配置信息
+    const cityConfig = {
+        '500151': { name: '铜梁', code: '500151' },
+        '500118': { name: '永川', code: '500118' },
+        '431126': { name: '宁远', code: '431126' }
+    };
+    
+    // 当前选择的城市（默认为铜梁）
+    let currentCity = '500151';
+    
+    // 初始化城市选择器
+    initCitySelector();
     // 计算认识天数并实时更新
     function updateDaysCount() {
         const daysCount = document.getElementById('days-count');
@@ -33,11 +45,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 获取重庆铜梁的天气数据
     function fetchWeatherData() {
-        // 高德天气API的URL，使用重庆铜梁的adcode: 500151
+        // 高德天气API的URL，使用当前选择的城市代码
         // 参考：https://lbs.amap.com/api/webservice/download
         const weatherApiUrl = 'https://restapi.amap.com/v3/weather/weatherInfo';
         const apiKey = '7aba9789edd4e655c05037f47adffe44';
-        const city = '500151'; // 重庆铜梁的adcode
+        const city = currentCity; // 使用当前选择的城市
         const extensions = 'all'; // 获取预报天气
         
         // 构建完整的API请求URL
@@ -380,6 +392,107 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 每小时更新一次天气数据
     setInterval(fetchWeatherData, 3600000);
+    
+    // 初始化城市选择器的函数
+    function initCitySelector() {
+        const citySelect = document.getElementById('city-select');
+        const customCityInput = document.getElementById('custom-city');
+        const searchCityBtn = document.getElementById('search-city');
+        
+        if (!citySelect) return;
+        
+        // 监听城市选择改变
+        citySelect.addEventListener('change', function() {
+            const selectedValue = this.value;
+            
+            if (selectedValue === 'custom') {
+                // 显示自定义输入框
+                customCityInput.style.display = 'inline-block';
+                searchCityBtn.style.display = 'inline-block';
+                customCityInput.focus();
+            } else {
+                // 隐藏自定义输入框
+                customCityInput.style.display = 'none';
+                searchCityBtn.style.display = 'none';
+                
+                // 更新当前城市并获取天气
+                currentCity = selectedValue;
+                fetchWeatherData();
+            }
+        });
+        
+        // 监听自定义城市搜索
+        if (searchCityBtn) {
+            searchCityBtn.addEventListener('click', searchCustomCity);
+        }
+        
+        // 监听回车键搜索
+        if (customCityInput) {
+            customCityInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchCustomCity();
+                }
+            });
+        }
+    }
+    
+    // 搜索自定义城市的函数
+    function searchCustomCity() {
+        const customCityInput = document.getElementById('custom-city');
+        const cityName = customCityInput.value.trim();
+        
+        if (!cityName) {
+            alert('请输入城市名称');
+            return;
+        }
+        
+        // 使用高德地理编码API查找城市代码
+        const apiKey = '7aba9789edd4e655c05037f47adffe44';
+        const geocodeUrl = `https://restapi.amap.com/v3/geocode/geo?key=${apiKey}&address=${encodeURIComponent(cityName)}`;
+        
+        fetch(geocodeUrl)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === '1' && data.geocodes && data.geocodes.length > 0) {
+                    const cityData = data.geocodes[0];
+                    const adcode = cityData.adcode;
+                    
+                    // 更新当前城市
+                    currentCity = adcode;
+                    
+                    // 在下拉框中添加新选项
+                    const citySelect = document.getElementById('city-select');
+                    const existingOption = citySelect.querySelector(`option[value="${adcode}"]`);
+                    
+                    if (!existingOption) {
+                        const newOption = document.createElement('option');
+                        newOption.value = adcode;
+                        newOption.textContent = cityData.formatted_address || cityName;
+                        
+                        // 在“自定义...”之前插入
+                        const customOption = citySelect.querySelector('option[value="custom"]');
+                        citySelect.insertBefore(newOption, customOption);
+                    }
+                    
+                    // 选中新添加的城市
+                    citySelect.value = adcode;
+                    
+                    // 隐藏自定义输入框
+                    customCityInput.style.display = 'none';
+                    document.getElementById('search-city').style.display = 'none';
+                    customCityInput.value = '';
+                    
+                    // 获取新城市的天气数据
+                    fetchWeatherData();
+                } else {
+                    alert('未找到该城市，请检查城市名称是否正确');
+                }
+            })
+            .catch(error => {
+                console.error('查找城市失败:', error);
+                alert('查找城市失败，请稍后再试');
+            });
+    }
     
     // 以下是原有的图片处理代码，保留不变
     // 获取上传控件
