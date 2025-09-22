@@ -33,74 +33,6 @@ body {
     text-align: center;
 }
 
-.city-selector {
-    margin-bottom: 20px;
-    padding: 12px;
-    background: #f8f9fa;
-    border-radius: 8px;
-    text-align: left;
-}
-
-.city-selector label {
-    display: block;
-    font-size: 14px;
-    color: #333;
-    margin-bottom: 8px;
-    font-weight: 500;
-}
-
-.city-selector select {
-    width: 100%;
-    padding: 8px 12px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 14px;
-    background: white;
-    color: #333;
-    cursor: pointer;
-    margin-bottom: 8px;
-}
-
-.city-selector select:focus {
-    outline: none;
-    border-color: #1976d2;
-    box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.1);
-}
-
-.city-selector input[type="text"] {
-    width: 70%;
-    padding: 8px 12px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 14px;
-    margin-right: 8px;
-}
-
-.city-selector input[type="text"]:focus {
-    outline: none;
-    border-color: #1976d2;
-    box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.1);
-}
-
-.city-selector button {
-    padding: 8px 16px;
-    background: #1976d2;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-.city-selector button:hover {
-    background: #1565c0;
-}
-
-.city-selector button:active {
-    transform: translateY(1px);
-}
-
 .love-days {
     margin-bottom: 24px;
     padding-bottom: 12px;
@@ -318,36 +250,6 @@ body {
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
-    .city-selector {
-        margin-bottom: 15px;
-        padding: 10px;
-        background: #f8f9fa;
-        border-radius: 6px;
-    }
-
-    .city-selector label {
-        font-size: 13px;
-        margin-bottom: 6px;
-    }
-
-    .city-selector select {
-        padding: 6px 10px;
-        font-size: 13px;
-        margin-bottom: 6px;
-    }
-
-    .city-selector input[type="text"] {
-        width: 65%;
-        padding: 6px 10px;
-        font-size: 13px;
-        margin-right: 6px;
-    }
-
-    .city-selector button {
-        padding: 6px 12px;
-        font-size: 13px;
-    }
-
     .love-days {
         font-size: 16px;
         padding: 10px 0;
@@ -552,36 +454,6 @@ body {
         margin: 20px auto;
         background: #fff;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .city-selector {
-        margin-bottom: 15px;
-        padding: 10px;
-        background: #f8f9fa;
-        border-radius: 6px;
-    }
-
-    .city-selector label {
-        font-size: 12px;
-        margin-bottom: 6px;
-    }
-
-    .city-selector select {
-        padding: 6px 8px;
-        font-size: 12px;
-        margin-bottom: 6px;
-    }
-
-    .city-selector input[type="text"] {
-        width: 60%;
-        padding: 6px 8px;
-        font-size: 12px;
-        margin-right: 6px;
-    }
-
-    .city-selector button {
-        padding: 6px 10px;
-        font-size: 12px;
     }
 
     .love-days {
